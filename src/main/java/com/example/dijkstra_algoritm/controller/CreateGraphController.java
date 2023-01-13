@@ -2,6 +2,7 @@ package com.example.dijkstra_algoritm.controller;
 
 
 import com.example.dijkstra_algoritm.constructor.EdgeGraphConstructor;
+
 import com.example.dijkstra_algoritm.constructor.VerticesGraphConstructor;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -57,41 +58,42 @@ public class CreateGraphController {
 
         List<VerticesGraphConstructor> vertList = this.vertList;
         List<EdgeGraphConstructor> edgeList = this.edgeList;
-        for (VerticesGraphConstructor vgc:vertList) {
-
-            System.out.println(vgc.getValue() + " | " + vgc.getNumber());
-        }
 
 
-        for (VerticesGraphConstructor verticesGraphConstructor : vertList) {
 
-            for (int j = edgeList.size() - 1; j >= 0; j--) {
+        for (VerticesGraphConstructor vgc : vertList) {
 
-                if (verticesGraphConstructor.getNumber() == edgeList.get(j).getVertA().getNumber() && edgeList.get(j).getVertA().getBGcolor() != Color.RED && edgeList.get(j).getVertB().getBGcolor() != Color.RED) {
-                    if (edgeList.get(j).getVertB().getValue() >= edgeList.get(j).getVertA().getValue() + edgeList.get(j).getMass()) {
-                        edgeList.get(j).getVertB().setValue(edgeList.get(j).getVertA().getValue() + edgeList.get(j).getMass());
-                        System.out.println(edgeList.get(j).getVertB().getValue() + " | " + edgeList.get(j).getVertB().getNumber() + " ---------<1");
-                    } else if (edgeList.get(j).getVertB().getValue() == -1) {
-                        edgeList.get(j).getVertB().setValue(edgeList.get(j).getMass());
-                        System.out.println(edgeList.get(j).getVertB().getValue() + " | " + edgeList.get(j).getVertB().getNumber() + " ---------<11");
+            for (EdgeGraphConstructor egc : edgeList) {
+                List<Integer> listInt = new ArrayList<>();
+
+                if (egc.getVertA().getNumber() == 1 && egc.getVertA().getValue() == -1 ){
+                    egc.getVertA().setValue(0);
+                } else if(egc.getVertB().getNumber() == 1 && egc.getVertB().getValue() == -1){
+                    egc.getVertB().setValue(0);
+                }
+                if(vgc.getNumber() == egc.getVertA().getNumber() ){
+                    if (egc.getVertB().getValue() > egc.getMass() + egc.getVertA().getValue() || egc.getVertB().getValue() == -1) {
+                        egc.getVertB().setValue(egc.getMass() + egc.getVertA().getValue());
+                        if (egc.getVertB().getWay() == null) {
+                            listInt.add(egc.getVertB().getNumber());
+                            egc.getVertB().setWay(listInt);
+                        } else egc.getVertB().getWay().add(egc.getVertA().getNumber());
                     }
-                } else if (verticesGraphConstructor.getNumber() == edgeList.get(j).getVertB().getNumber() && edgeList.get(j).getVertA().getBGcolor() != Color.RED && edgeList.get(j).getVertB().getBGcolor() != Color.RED) {
-                    if (edgeList.get(j).getVertA().getValue() >= edgeList.get(j).getVertB().getValue() + edgeList.get(j).getMass()) {
-                        edgeList.get(j).getVertA().setValue(edgeList.get(j).getVertB().getValue() + edgeList.get(j).getMass());
-                        System.out.println(edgeList.get(j).getVertA().getValue() + " | " + edgeList.get(j).getVertA().getNumber() + " ---------<2");
-                    } else if (edgeList.get(j).getVertA().getValue() == -1) {
-                        edgeList.get(j).getVertA().setValue(edgeList.get(j).getMass());
-                        System.out.println(edgeList.get(j).getVertA().getValue() + " | " + edgeList.get(j).getVertA().getNumber() + " ---------<21");
+                } else if (vgc.getNumber() == egc.getVertB().getNumber()){
+                    if (egc.getVertA().getValue() > egc.getMass() + egc.getVertB().getValue() || egc.getVertA().getValue() == -1) {
+                        egc.getVertA().setValue(egc.getMass() + egc.getVertB().getValue());
+                        if (egc.getVertA().getWay() == null) {
+                            listInt.add(egc.getVertB().getNumber());
+                            egc.getVertA().setWay(listInt);
+                        } else egc.getVertA().getWay().add(egc.getVertB().getNumber());
                     }
                 }
-
             }
-            verticesGraphConstructor.setBGcolor(Color.RED);
         }
 
         for (VerticesGraphConstructor vgc:vertList) {
 
-            System.out.println(vgc.getValue() + " | " + vgc.getNumber());
+            System.out.println(vgc.getValue() + " | " + vgc.getNumber() + " | " + vgc.getWay());
         }
 
     }

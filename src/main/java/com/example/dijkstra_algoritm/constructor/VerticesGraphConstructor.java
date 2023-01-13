@@ -3,6 +3,8 @@ package com.example.dijkstra_algoritm.constructor;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
+import java.util.List;
+
 /** Класс конструктор вершин графа **/
 public class VerticesGraphConstructor {
 
@@ -11,6 +13,7 @@ public class VerticesGraphConstructor {
     private int number;
     private int value;
     private int radius;
+    private List<Integer> way;
 
     private Paint BGcolor;
 
@@ -38,7 +41,13 @@ public class VerticesGraphConstructor {
         this.BGcolor = BGcolor;
     }
 
-
+    public VerticesGraphConstructor(int number, int value, int radius, List<Integer> way, Paint BGcolor) {
+        this.number = number;
+        this.value = value;
+        this.radius = radius;
+        this.way = way;
+        this.BGcolor = BGcolor;
+    }
 
     public int getX() {
         return x;
@@ -88,6 +97,11 @@ public class VerticesGraphConstructor {
         this.radius = radius;
     }
 
+    public List<Integer> getWay() {
+        return way;
+    }
 
-
+    public void setWay(List<Integer> way) {
+        this.way = way;
+    }
 }

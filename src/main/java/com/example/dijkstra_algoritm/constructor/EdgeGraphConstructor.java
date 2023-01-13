@@ -9,6 +9,8 @@ public class EdgeGraphConstructor {
     private int mass;
 
 
+
+
     public EdgeGraphConstructor(VerticesGraphConstructor _vertA, VerticesGraphConstructor _vertB, int mass) {
         this.vertA = _vertA;
         this.vertB = _vertB;
